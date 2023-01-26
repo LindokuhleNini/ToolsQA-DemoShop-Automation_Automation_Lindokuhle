@@ -24,6 +24,7 @@ public class BaseTests {
         driver.get("https://shop.demoqa.com");
         driver.manage().window().maximize();
         home = new Home(driver);
+        home.removePopup();
         dashboard = new Dashboard(driver);
         products = new Products(driver);
     }
