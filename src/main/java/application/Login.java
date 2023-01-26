@@ -7,7 +7,8 @@ public class Login {
     private WebDriver driver;
     private By usernameField = By.id("username");
     private By passwordField = By.id("password");
-    private By loginButton = By.name("login");
+    private By loginButton = By.xpath("//*[@id=\"customer_login\"]/div[1]/form/p[3]/button");
+
 
     public Login(WebDriver driver){
         this.driver = driver;
@@ -19,5 +20,10 @@ public class Login {
 
     public void setPassword(String password) {
         driver.findElement(passwordField).sendKeys(password);
+    }
+
+    public void clickLoginButton(){
+        driver.findElement(loginButton).click();
+        //return new Dashboard();
     }
 }
