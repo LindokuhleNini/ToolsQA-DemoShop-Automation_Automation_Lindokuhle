@@ -2,6 +2,11 @@ package application;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class Login {
     private WebDriver driver;
@@ -22,8 +27,11 @@ public class Login {
         driver.findElement(passwordField).sendKeys(password);
     }
 
-    public void clickLoginButton(){
-        driver.findElement(loginButton).click();
-        //return new Dashboard();
+    public Dashboard clickLoginButton(){
+        WebElement firstResult = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(loginButton));
+        firstResult.click();
+        //driver.findElement(loginButton).click();
+        return new Dashboard(driver);
     }
 }
