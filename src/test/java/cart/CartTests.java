@@ -1,19 +1,24 @@
 package cart;
 
 import application.Home;
+import base.BaseTests;
 import org.testng.annotations.Test;
 
-public class CartTests {
+public class CartTests extends BaseTests {
 
     @Test
     public void testItemAddedToCart(){
 
-
-        /*Home home = dashboard.clickHome();
-        home.selectProduct();
+        Home prod = dashboard.navigateToProducts();
+        prod.selectProduct();
         products.chooseColor();
         products.chooseSize();
         products.addToCart();
-        products.openCart();*/
+        products.openCart();
+
+        cart.cartTotal();
+
+        home.clickMyAccount();
+        home.logout();
     }
 }

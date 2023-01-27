@@ -16,15 +16,14 @@ public class Dashboard {
         this.driver = driver;
     }
 
-    public Home clickHome(){
-        WebElement firstResult = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"noo-site\"]/header/div[2]/div/div/div/div/a/img")));
+    public Home navigateToProducts(){
+        driver.get("https://shop.demoqa.com/shop/");
 
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+        /*JavascriptExecutor js = (JavascriptExecutor) driver;
         //Scroll down till the bottom of the page
         js.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'})", firstResult);
-        firstResult.click();
+        firstResult.click();*/
         return new Home(driver);
     }
 

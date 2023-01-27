@@ -52,8 +52,13 @@ public class Home {
     {
 
         wait = new WebDriverWait(driver, Duration.ofSeconds(1));
-        new Actions(driver).moveToElement(wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"noo-site\"]/div[2]/div[3]/div/div[2]/div/div/div/div[2]/div[2]/div[1]/div/div[1]/a")))).click().build().perform();
+        new Actions(driver).moveToElement(wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"noo-site\"]/div[2]/div[2]/div/div/div[1]/div/div[1]/div[2]/div[1]/div/div[1]/a/img")))).click().build().perform();
 
         return new Products(driver);
+    }
+
+    public void logout(){
+        clickLink("Logout");
+        //return new Login(driver);
     }
 }
