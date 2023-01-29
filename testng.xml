@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="C:/Users/Digi_WS/IdeaProjects/ToolsQA-DemoShop-Automation_Automation_-Lindokuhle-">
+        <classes>
+
+            <class name="login.LoginTests">
+                <methods>
+                    <include name="testSuccessfulLogin"/>
+                </methods>
+            </class>
+            <class name="cart.CartTests">
+                <methods>
+                    <include name="testItemAddedToCart"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

@@ -41,7 +41,7 @@ public class Products {
 
     public void addToCart(){
         WebElement addButton = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"product-1491\"]/div[1]/div[2]/form/div/div[2]/button")));
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"product-1162\"]/div[1]/div[2]/form/div/div[2]/button")));
         addButton.click();
     }
 
