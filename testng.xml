@@ -22,4 +22,25 @@
             </class>
         </classes>
     </test>
+    <test verbose="2" preserve-order="true" name="Microsoft Edge Browser Test">
+        <parameter name="browser" value="edge"/>
+        <parameter name="url" value="https://shop.demoqa.com/shop/"/>
+        <classes>
+            <class name="login.LoginTests">
+                <methods>
+                    <include name="testUnsuccessfulLogin"/>
+                </methods>
+            </class>
+            <class name="login.LoginTests">
+                <methods>
+                    <include name="testSuccessfulLogin"/>
+                </methods>
+            </class>
+            <class name="cart.CartTests">
+                <methods>
+                    <include name="testItemAddedToCart"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>
