@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
-    <test verbose="2" preserve-order="true"
-          name="C:/Users/Digi_WS/IdeaProjects/ToolsQA-DemoShop-Automation_Automation_-Lindokuhle-">
+<suite name="ToolsQA Demo Shop Test Suite">
+    <test verbose="2" preserve-order="true" name="Google Chrome Browser Test">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="url" value="https://shop.demoqa.com/shop/"/>
         <classes>
-
+            <class name="login.LoginTests">
+                <methods>
+                    <include name="testUnsuccessfulLogin"/>
+                </methods>
+            </class>
             <class name="login.LoginTests">
                 <methods>
                     <include name="testSuccessfulLogin"/>

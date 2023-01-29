@@ -2,31 +2,40 @@ package base;
 
 import application.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.*;
+import utilities.ActionHelper;
+import utilities.ExcelHelper;
 
 public class BaseTests {
 
-    private WebDriver driver;
-    protected Home home;
-    protected Dashboard dashboard;
+    protected WebDriver driver;
     protected Products products;
+    protected Dashboard dashboard;
+
+    protected ExcelHelper excelHelper;
 
     protected Cart cart;
 
-    @BeforeClass
-    public void setUp(){
-        System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
-        driver = new ChromeDriver();
+    protected String username;
+    protected String password;
 
-        driver.get("https://shop.demoqa.com/shop/");
+
+    @BeforeTest
+    @Parameters({"browser", "url"})
+    public void setUp(String browser, String url){
+
+        driver = new ActionHelper().setupBrowser(browser);
+        driver.get(url);
         driver.manage().window().maximize();
-        home = new Home(driver);
-        home.removePopup();
+
+        excelHelper = new ExcelHelper();
+        excelHelper.excelSetup();
+        products = new Products(driver);
         dashboard = new Dashboard(driver);
         products = new Products(driver);
         cart = new Cart(driver);
+        products.removePopup();
+
     }
 
     @AfterClass

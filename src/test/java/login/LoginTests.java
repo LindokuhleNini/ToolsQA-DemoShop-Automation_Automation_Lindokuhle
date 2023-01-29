@@ -1,6 +1,5 @@
 package login;
 
-import application.Home;
 import application.Login;
 import base.BaseTests;
 import org.testng.annotations.Test;
@@ -8,37 +7,35 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class LoginTests extends BaseTests {
-    @Test
+
+    //@Parameters("url")
+    @Test(priority = 2)
     public void testSuccessfulLogin() throws InterruptedException {
-        Login loginPage = home.clickMyAccount();
-        loginPage.setUsername("Lindokuhle");
-        loginPage.setPassword("Testing@12345");
-        Thread.sleep(2000);
+        username = excelHelper.getCellDataString(2, 1);
+        password = excelHelper.getCellDataString(2, 2);
+
+        Login loginPage = products.clickMyAccount();
+        Thread.sleep(1000);
+        loginPage.setUsername(username);
+        Thread.sleep(1000);
+        loginPage.setPassword(password);
+        Thread.sleep(1000);
         loginPage.clickLoginButton();
+        Thread.sleep(1000);
 
-        /*assertFalse(loginPage.loginErrorVisible(),
-                "The username or password is incorrect");*/
+        assertFalse(loginPage.loginErrorVisible(),
+                "The username or password is incorrect");
 
-        Home prod = dashboard.navigateToProducts();
-        prod.selectProduct();
-        Thread.sleep(2000);
-
-        String oldCartTotal = cart.cartTotal();
-        products.chooseColor();
-        products.chooseSize();
-        products.addToCart();
-        products.openCart();
-
-        String newCartTotal = cart.cartTotal();
-        assertNotEquals(oldCartTotal, newCartTotal);
     }
 
-    @Test
-    public void testUnsuccessfulLogin()
-    {
-        Login loginPage = home.clickMyAccount();
+    @Test(priority = 1)
+    public void testUnsuccessfulLogin() throws InterruptedException {
+        Login loginPage = products.clickMyAccount();
+        Thread.sleep(1000);
         loginPage.setUsername("Lindokuhle");
+        Thread.sleep(1000);
         loginPage.setPassword("Testing@123");
+        Thread.sleep(1000);
         loginPage.clickLoginButton();
 
         assertTrue(loginPage.loginErrorVisible(),
