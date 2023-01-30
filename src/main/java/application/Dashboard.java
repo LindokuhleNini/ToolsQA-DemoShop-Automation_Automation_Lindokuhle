@@ -12,18 +12,11 @@ public class Dashboard extends ActionHelper {
         this.driver = driver;
     }
 
-    public Products navigateToProducts(){
-      /*  driver.get("https://shop.demoqa.com/shop/");
+    public void navigateToProducts(){
 
+        clickElement(By.linkText("Downloads"));
+        clickElement(By.linkText("Browse products"));
 
-        *//*JavascriptExecutor js = (JavascriptExecutor) driver;
-        //Scroll down till the bottom of the page
-        js.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'})", firstResult);
-        firstResult.click();*//*
-        return new Products(driver);*/
-
-        clickElement(By.xpath("//*[@id=\"noo-site\"]"));
-        return new Products(driver);
     }
 
 

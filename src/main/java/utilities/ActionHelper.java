@@ -23,7 +23,6 @@ public class ActionHelper {
 
     public WebDriver setupBrowser(String browser){
 
-
         switch (browser.toUpperCase()){
             case "CHROME", "GOOGLE CHROME" ->{
                 WebDriverManager.chromedriver().setup();

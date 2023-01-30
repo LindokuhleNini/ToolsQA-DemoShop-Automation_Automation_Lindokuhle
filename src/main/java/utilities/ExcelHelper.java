@@ -1,13 +1,9 @@
 package utilities;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFShape;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 public class ExcelHelper {
     static XSSFWorkbook workbook;
@@ -15,10 +11,6 @@ public class ExcelHelper {
 
     public ExcelHelper(){
 
-    }
-    public static void main(String[] args) {
-        //getRowCount();
-        //getCellData();
     }
 
     public static void excelSetup(){
@@ -28,7 +20,6 @@ public class ExcelHelper {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public static void getRowCount(){
@@ -43,9 +34,9 @@ public class ExcelHelper {
         return cellData;
     }
 
-    public static double getCellDataInt(int rowNum, int cellNum){
+    public static int getCellDataInt(int rowNum, int cellNum){
         excelSetup();
-        double cellData = sheet.getRow(rowNum).getCell(cellNum).getNumericCellValue();
+        int cellData = (int) sheet.getRow(rowNum).getCell(cellNum).getNumericCellValue();
         return cellData;
     }
 

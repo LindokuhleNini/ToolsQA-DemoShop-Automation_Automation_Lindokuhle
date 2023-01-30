@@ -1,6 +1,7 @@
 package application;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -13,7 +14,6 @@ import java.time.Duration;
 public class Products extends ActionHelper {
     private WebDriver driver;
     private WebDriverWait wait;
-    private By myAccountLink = By.linkText("My Account");
 
     public Products(WebDriver driver)
     {
@@ -32,71 +32,51 @@ public class Products extends ActionHelper {
         }
     }
 
-    public void clickLink(String linkText)
-    {
-        new WebDriverWait(driver, Duration.ofSeconds(30))
-                .until(ExpectedConditions.elementToBeClickable(By.linkText(linkText))).click();
-    }
-
     public Login clickMyAccount()
     {
         clickElement(By.linkText("My Account"));
         return new Login(driver);
     }
 
-    public void clickCart()
-    {
-        clickElement(By.className("cart-name-and-total"));
-    }
-
     public void selectProduct(String prodTitle)
     {
-
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,500)");
         clickElement(By.linkText(prodTitle));
-        /*wait = new WebDriverWait(driver, Duration.ofSeconds(1));
-        new Actions(driver).moveToElement(wait.until(ExpectedConditions.elementToBeClickable(By.linkText(prodTitle)))).click().build().perform();
-*/
+
     }
 
     public void chooseColor(String color){
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,500)");
         clickElement(By.id("pa_color"));
-        clickElement(By.linkText(color));
-        /*WebElement colorOptions = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.id("pa_color")));
-        colorOptions.click();
-     clickLink(color);*/
+        clickElement(By.xpath("//*[text()='"+color+"']"));
+
     }
 
     public void chooseSize(String size){
-        clickElement(By.id("pa_size"));
-        clickElement(By.linkText(size));
 
-      /*  WebElement sizeOptions = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.id("pa_size")));
-        sizeOptions.click();
-     clickLink(size);*/
+        clickElement(By.id("pa_size"));
+        clickElement(By.xpath("//*[text()='"+size+"']"));
+
     }
 
     public void addToCart(){
-        clickElement(By.xpath("//*[@id=\"product-1162\"]/div[1]/div[2]/form/div/div[2]/button"));
-  /*      WebElement addButton = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"product-1162\"]/div[1]/div[2]/form/div/div[2]/button")));
-        addButton.click();*/
+
+        clickElement(By.className("single_add_to_cart_button"));
+
     }
 
     public Cart openCart(){
-        clickElement(By.className("cart-name-and-total"));
-       /* WebElement addButton = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.className("cart-name-and-total")));
-        addButton.click();*/
 
+        clickElement(By.className("cart-name-and-total"));
         return new Cart(driver);
     }
 
-
     public void logout(){
+
         clickElement(By.linkText("Logout"));
-        //clickLink("Logout");
-        //return new Login(driver);
+
     }
 }
