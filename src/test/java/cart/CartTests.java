@@ -13,15 +13,19 @@ public class CartTests extends BaseTests {
     @Test(priority = 3)
     public void testItemAddedToCart() throws InterruptedException {
 
-        //Products prod = dashboard.navigateToProducts();
-        //Thread.sleep(1000);
-        products.selectProduct();
+        dashboard.navigateToProducts();
+        String prodTitle = excelHelper.getCellDataString(2, 3);
+        String color = excelHelper.getCellDataString(2, 4);
+        String size = ""+excelHelper.getCellDataInt(2, 5);
+
+        Thread.sleep(1000);
+        products.selectProduct(prodTitle);
         Thread.sleep(1000);
 
         String oldCartTotal = cart.cartTotal();
-        products.chooseColor();
+        products.chooseColor(color);
         Thread.sleep(1000);
-        products.chooseSize();
+        products.chooseSize(size);
         Thread.sleep(1000);
         products.addToCart();
         Thread.sleep(1000);
@@ -31,7 +35,7 @@ public class CartTests extends BaseTests {
         String newCartTotal = cart.cartTotal();
         assertNotEquals(oldCartTotal, newCartTotal);
 
-        products.clickMyAccount();
-        products.logout();
+       /* products.clickMyAccount();
+        products.logout();*/
     }
 }

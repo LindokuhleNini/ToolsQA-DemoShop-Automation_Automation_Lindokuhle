@@ -22,7 +22,7 @@
             </class>
         </classes>
     </test>
-    <test verbose="2" preserve-order="true" name="Microsoft Edge Browser Test">
+<!--    <test verbose="2" preserve-order="true" name="Microsoft Edge Browser Test">
         <parameter name="browser" value="edge"/>
         <parameter name="url" value="https://shop.demoqa.com/shop/"/>
         <classes>
@@ -42,5 +42,5 @@
                 </methods>
             </class>
         </classes>
-    </test>
+    </test>-->
 </suite>

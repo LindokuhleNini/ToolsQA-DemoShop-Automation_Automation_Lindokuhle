@@ -43,10 +43,10 @@ public class ExcelHelper {
         return cellData;
     }
 
-    public static void getCellDataInt(int rowNum, int cellNum){
+    public static double getCellDataInt(int rowNum, int cellNum){
         excelSetup();
         double cellData = sheet.getRow(rowNum).getCell(cellNum).getNumericCellValue();
-        System.out.println(cellData);
+        return cellData;
     }
 
 

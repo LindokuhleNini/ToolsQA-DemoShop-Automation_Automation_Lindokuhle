@@ -24,7 +24,7 @@ public class BaseTests {
     @Parameters({"browser", "url"})
     public void setUp(String browser, String url){
 
-        driver = new ActionHelper().setupBrowser(browser);
+        driver = new ActionHelper(driver).setupBrowser(browser);
         driver.get(url);
         driver.manage().window().maximize();
 
@@ -32,13 +32,12 @@ public class BaseTests {
         excelHelper.excelSetup();
         products = new Products(driver);
         dashboard = new Dashboard(driver);
-        products = new Products(driver);
         cart = new Cart(driver);
         products.removePopup();
 
     }
 
-    @AfterClass
+    @AfterTest
     public void tearDown(){
         driver.quit();
     }

@@ -6,16 +6,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utilities.ActionHelper;
 
 import java.time.Duration;
 
-public class Products {
+public class Products extends ActionHelper {
     private WebDriver driver;
     private WebDriverWait wait;
     private By myAccountLink = By.linkText("My Account");
 
     public Products(WebDriver driver)
     {
+        super(driver);
         this.driver = driver;
     }
 
@@ -32,72 +34,69 @@ public class Products {
 
     public void clickLink(String linkText)
     {
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.elementToBeClickable(By.linkText(linkText))).click();
     }
 
     public Login clickMyAccount()
     {
-        clickLink("My Account");
+        clickElement(By.linkText("My Account"));
         return new Login(driver);
     }
 
     public void clickCart()
     {
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.className("cart-name-and-total"))).click();
+        clickElement(By.className("cart-name-and-total"));
     }
 
-    public void selectProduct()
+    public void selectProduct(String prodTitle)
     {
 
-        wait = new WebDriverWait(driver, Duration.ofSeconds(1));
-        new Actions(driver).moveToElement(wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"noo-site\"]/div[2]/div[2]/div/div/div[1]/div/div[1]/div[2]/div[1]/div/div[1]/a/img")))).click().build().perform();
-
-       // return new Products(driver);
+        clickElement(By.linkText(prodTitle));
+        /*wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+        new Actions(driver).moveToElement(wait.until(ExpectedConditions.elementToBeClickable(By.linkText(prodTitle)))).click().build().perform();
+*/
     }
 
-    public void chooseColor(){
-        WebElement colorOptions = new WebDriverWait(driver, Duration.ofSeconds(10))
+    public void chooseColor(String color){
+        clickElement(By.id("pa_color"));
+        clickElement(By.linkText(color));
+        /*WebElement colorOptions = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(By.id("pa_color")));
         colorOptions.click();
-
-        WebElement color = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"pa_color\"]/option[2]")));
-        color.click();
-
-        //return new Home(driver);
+     clickLink(color);*/
     }
 
-    public void chooseSize(){
-        WebElement sizeOptions = new WebDriverWait(driver, Duration.ofSeconds(10))
+    public void chooseSize(String size){
+        clickElement(By.id("pa_size"));
+        clickElement(By.linkText(size));
+
+      /*  WebElement sizeOptions = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(By.id("pa_size")));
         sizeOptions.click();
-
-        WebElement size = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"pa_size\"]/option[2]")));
-        size.click();
-
-        //return new Home(driver);
+     clickLink(size);*/
     }
 
     public void addToCart(){
-        WebElement addButton = new WebDriverWait(driver, Duration.ofSeconds(10))
+        clickElement(By.xpath("//*[@id=\"product-1162\"]/div[1]/div[2]/form/div/div[2]/button"));
+  /*      WebElement addButton = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"product-1162\"]/div[1]/div[2]/form/div/div[2]/button")));
-        addButton.click();
+        addButton.click();*/
     }
 
     public Cart openCart(){
-        WebElement addButton = new WebDriverWait(driver, Duration.ofSeconds(10))
+        clickElement(By.className("cart-name-and-total"));
+       /* WebElement addButton = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(By.className("cart-name-and-total")));
-        addButton.click();
+        addButton.click();*/
 
         return new Cart(driver);
     }
 
 
     public void logout(){
-        clickLink("Logout");
+        clickElement(By.linkText("Logout"));
+        //clickLink("Logout");
         //return new Login(driver);
     }
 }

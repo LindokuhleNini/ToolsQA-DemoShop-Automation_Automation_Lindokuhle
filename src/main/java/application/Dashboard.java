@@ -9,7 +9,7 @@ public class Dashboard {
         this.driver = driver;
     }
 
-    public void navigateToProducts(){
+    public Products navigateToProducts(){
         driver.get("https://shop.demoqa.com/shop/");
 
 
@@ -17,7 +17,7 @@ public class Dashboard {
         //Scroll down till the bottom of the page
         js.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'})", firstResult);
         firstResult.click();*/
-        //return new Products(driver);
+        return new Products(driver);
     }
 
 
