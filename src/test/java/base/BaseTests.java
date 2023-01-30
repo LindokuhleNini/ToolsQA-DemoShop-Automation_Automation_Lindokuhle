@@ -31,7 +31,7 @@ public class BaseTests {
         excelHelper = new ExcelHelper();
         excelHelper.excelSetup();
         products = new Products(driver);
-        dashboard = new Dashboard(driver);
+
         cart = new Cart(driver);
         products.removePopup();
 

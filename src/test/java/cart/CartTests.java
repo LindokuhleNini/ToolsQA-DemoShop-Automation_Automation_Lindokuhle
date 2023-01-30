@@ -4,16 +4,18 @@ import application.Cart;
 import application.Dashboard;
 import application.Products;
 import base.BaseTests;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertNotEquals;
 
 public class CartTests extends BaseTests {
 
+    @Parameters("url")
     @Test(priority = 3)
     public void testItemAddedToCart() throws InterruptedException {
 
-        dashboard.navigateToProducts();
+        //Products prod = dashboard.navigateToProducts();
         String prodTitle = excelHelper.getCellDataString(2, 3);
         String color = excelHelper.getCellDataString(2, 4);
         String size = ""+excelHelper.getCellDataInt(2, 5);
