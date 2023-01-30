@@ -1,4 +1,5 @@
 import application.*;
+import com.sun.source.tree.AssertTree;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -33,8 +34,8 @@ public class AppTests extends BaseTests {
         Thread.sleep(1000);
         loginPage.clickLoginButton();
 
-        assertTrue(loginPage.loginErrorVisible(),
-                "The username or password is incorrect");
+        assertFalse(loginPage.loginErrorVisible(), "Login successful");
+        assertTrue(loginPage.loginErrorVisible(), "The username or password is incorrect");
     }
 
     @Test(priority = 3)
@@ -55,7 +56,8 @@ public class AppTests extends BaseTests {
         products.addToCart();
 
         String newCartTotal = cart.cartTotal();
-        assertNotEquals(oldCartTotal, newCartTotal);
+        assertNotEquals(oldCartTotal, newCartTotal, "Item added to cart successfully");
+        //assertEquals(oldCartTotal, newCartTotal, "Item not added to cart");
 
         products.clickMyAccount();
         products.logout();
@@ -71,9 +73,13 @@ public class AppTests extends BaseTests {
         Thread.sleep(2000);
         checkout.placeOrder();
         Thread.sleep(2000);
-        products.clickMyAccount();
 
         confirmation = new Confirmation(driver);
+        assertTrue(confirmation.orderSuccess().equals(true), "Order successful");
+        assertFalse(confirmation.orderSuccess().equals(false), "Order unsuccessful");
+        Thread.sleep(1000);
+
+        products.clickMyAccount();
         confirmation.displayOrders();
         Thread.sleep(2000);
     }

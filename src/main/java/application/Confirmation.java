@@ -12,6 +12,15 @@ public class Confirmation extends ActionHelper {
         this.driver = driver;
     }
 
+    public Boolean orderSuccess(){
+
+        if (driver.findElement(By.className("woocommerce-thankyou-order-received")).isDisplayed())
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void displayOrders(){
         clickElement(By.linkText("Orders"));
         JavascriptExecutor js = (JavascriptExecutor) driver;
