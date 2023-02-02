@@ -43,7 +43,7 @@ public class Products extends ActionHelper {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,500)");
         clickElement(By.linkText(prodTitle));
-
+        //li[class='woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard'] a
     }
 
     public void chooseColor(String color){

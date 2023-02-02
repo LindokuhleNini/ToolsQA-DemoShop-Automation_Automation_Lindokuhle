@@ -1,10 +1,20 @@
 import application.*;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.sun.source.tree.AssertTree;
+import org.apache.poi.ss.formula.functions.DCount;
 import org.testng.annotations.Test;
+import utilities.ActionHelper;
+
+import java.io.File;
 
 import static org.testng.Assert.*;
 
 public class AppTests extends BaseTests {
+
+    File file = new File("report.html");
+    ExtentReports extentReports = new ExtentReports();
+    ExtentSparkReporter spark =  new ExtentSparkReporter(file);
 
     //@Parameters("url")
     @Test(priority = 2)
@@ -19,9 +29,18 @@ public class AppTests extends BaseTests {
         loginPage.setPassword(password);
         loginPage.clickLoginButton();
 
+        extentReports.attachReporter(spark);
+        String path = new ActionHelper(driver).captureScreenshot("LoginPassed.jpg");
+
+        extentReports
+                .createTest("Login Test 2", "Successful login")
+                .info("Info")
+                .addScreenCaptureFromPath(path);
+
+        extentReports.flush();
+
         assertFalse(loginPage.loginErrorVisible(),
                 "The username or password is incorrect");
-
     }
 
     @Test(priority = 1)
@@ -33,9 +52,21 @@ public class AppTests extends BaseTests {
         loginPage.setPassword("Testing@123");
         Thread.sleep(1000);
         loginPage.clickLoginButton();
+        Thread.sleep(1000);
+        //assertFalse(loginPage.loginErrorVisible(), "Login successful");
 
-        assertFalse(loginPage.loginErrorVisible(), "Login successful");
+        extentReports.attachReporter(spark);
+        String path = new ActionHelper(driver).captureScreenshot("LoginFailed.jpg");
+
+        extentReports
+                .createTest("Login Test 1", "Failed login")
+                .info("Info")
+                .addScreenCaptureFromPath(path);
+
+        extentReports.flush();
+
         assertTrue(loginPage.loginErrorVisible(), "The username or password is incorrect");
+
     }
 
     @Test(priority = 3)
@@ -54,10 +85,20 @@ public class AppTests extends BaseTests {
         products.chooseColor(color);
         products.chooseSize(size);
         products.addToCart();
+        Thread.sleep(2000);
+
+        extentReports.attachReporter(spark);
+        String path = new ActionHelper(driver).captureScreenshot("CartItem.jpg");
+
+        extentReports
+                .createTest("Add item to cart test", "Item added successfully")
+                .info("Info")
+                .addScreenCaptureFromPath(path);
 
         String newCartTotal = cart.cartTotal();
         assertNotEquals(oldCartTotal, newCartTotal, "Item added to cart successfully");
-        //assertEquals(oldCartTotal, newCartTotal, "Item not added to cart");
+
+        extentReports.flush();
 
         products.clickMyAccount();
         products.logout();
@@ -70,9 +111,20 @@ public class AppTests extends BaseTests {
         cart.proceedToCheckout();
 
         checkout = new Checkout(driver);
-        Thread.sleep(2000);
+        checkout.setFirstName("Lindokuhle");
+        Thread.sleep(1000);
+        checkout.setLastName("Nini");
+        Thread.sleep(1000);
+        checkout.setCompanyName("DigiLink");
+        Thread.sleep(1000);
+        checkout.selectCountryDropdown();
+        Thread.sleep(1000);
+        checkout.setCountryInputField("South Africa");
+        Thread.sleep(1000);
+        checkout.setCountry();
+        Thread.sleep(1000);
         checkout.placeOrder();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
         confirmation = new Confirmation(driver);
         assertTrue(confirmation.orderSuccess().equals(true), "Order successful");

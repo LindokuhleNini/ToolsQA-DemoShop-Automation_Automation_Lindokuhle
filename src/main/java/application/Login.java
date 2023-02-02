@@ -4,10 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utilities.ActionHelper;
 
 import java.time.Duration;
 
-public class Login {
+public class Login extends ActionHelper {
     private WebDriver driver;
     private By usernameField = By.id("username");
     private By passwordField = By.id("password");
@@ -16,6 +17,7 @@ public class Login {
 
 
     public Login(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
@@ -28,8 +30,9 @@ public class Login {
     }
 
     public Dashboard clickLoginButton() {
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+        clickElement(loginButton);
+        /*new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(loginButton)).click();*/
         return new Dashboard(driver);
     }
 

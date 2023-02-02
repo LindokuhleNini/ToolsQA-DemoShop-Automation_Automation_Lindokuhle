@@ -9,7 +9,6 @@ public class Dashboard extends ActionHelper {
 
     public Dashboard(WebDriver driver){
         super(driver);
-        this.driver = driver;
     }
 
     public void navigateToProducts(){

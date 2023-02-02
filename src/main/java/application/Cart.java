@@ -8,10 +8,11 @@ import utilities.ActionHelper;
 public class Cart extends ActionHelper {
     private WebDriver driver;
 
-    public Cart(WebDriver driver){
+    public Cart(WebDriver driver) {
         super(driver);
         this.driver = driver;
     }
+
 
     public String cartTotal(){
         return driver.findElement(By.className("woocommerce-Price-amount")).getText();

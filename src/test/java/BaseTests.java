@@ -4,6 +4,10 @@ import org.testng.annotations.*;
 import utilities.ActionHelper;
 import utilities.ExcelHelper;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
 public class BaseTests {
 
     protected WebDriver driver;
@@ -37,7 +41,8 @@ public class BaseTests {
     }
 
     @AfterTest
-    public void tearDown(){
+    public void tearDown() throws IOException {
         driver.quit();
+        Desktop.getDesktop().browse(new File("report.html").toURI());
     }
 }
