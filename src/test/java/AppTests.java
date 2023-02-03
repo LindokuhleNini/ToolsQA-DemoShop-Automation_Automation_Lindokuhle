@@ -45,14 +45,17 @@ public class AppTests extends BaseTests {
 
     @Test(priority = 1)
     public void testUnsuccessfulLogin() throws InterruptedException {
+        username = excelHelper.getCellDataString(1, 1);
+        password = excelHelper.getCellDataString(1, 2);
+
         extentReports.attachReporter(spark);
         ExtentTest parentTest = extentReports.createTest("Invalid Login");
 
         Login loginPage = products.clickMyAccount();
         Thread.sleep(1000);
-        loginPage.setUsername("Lindokuhle");
+        loginPage.setUsername(username);
         Thread.sleep(1000);
-        loginPage.setPassword("Testing@123");
+        loginPage.setPassword(password);
         Thread.sleep(1000);
         parentTest.info("User provides incorrect login details");
         parentTest.addScreenCaptureFromPath(reportsHelper.captureScreenshot("wrong_login_credentials.jpg"));
@@ -106,49 +109,75 @@ public class AppTests extends BaseTests {
         String newCartTotal = cart.cartTotal();
         assertNotEquals(oldCartTotal, newCartTotal, "Item added to cart successfully");
 
-        products.clickMyAccount();
-
-        products.logout();
     }
 
     @Test(priority = 4)
-    public void testSuccessfulCheckout() throws InterruptedException {
+    public void testLogout(){
         extentReports.attachReporter(spark);
-        ExtentTest parentTest = extentReports.createTest("Add Item To Cart");
+        ExtentTest parentTest = extentReports.createTest("Logout");
+
+        products.clickMyAccount();
+        products.logout();
+        parentTest.info("User is logged out");
+        parentTest.addScreenCaptureFromPath(reportsHelper.captureScreenshot("logout.jpg"));
+        extentReports.flush();
+    }
+
+    @Test(priority = 5)
+    public void testSuccessfulCheckout() throws InterruptedException {
+        testSuccessfulLogin();
+        testItemAddedToCart();
+        extentReports.attachReporter(spark);
+        ExtentTest parentTest = extentReports.createTest("Checkout Test");
 
         testSuccessfulLogin();
         products.openCart();
         cart.proceedToCheckout();
 
+        String firstName = excelHelper.getCellDataString(3, 1);
+        String lastName = excelHelper.getCellDataString(3, 2);
+        String company = excelHelper.getCellDataString(3, 8);
+        String streetAddress = ""+excelHelper.getCellDataInt(3, 10);
+        //String addressType = ""+excelHelper.getCellDataInt(3, 5);
+        String city = excelHelper.getCellDataString(3, 11);
+        String code = ""+excelHelper.getCellDataInt(3, 13);
+        String phone = ""+excelHelper.getCellDataInt(3, 14);
+        String email = excelHelper.getCellDataString(3, 15);
+
         checkout = new Checkout(driver);
-        checkout.setFirstName("Lindokuhle");
+        checkout.setFirstName(firstName);
         Thread.sleep(1000);
-        checkout.setLastName("Nini");
+        checkout.setLastName(lastName);
         Thread.sleep(1000);
-        checkout.setCompanyName("DigiLink");
+        checkout.setCompanyName(company);
         Thread.sleep(1000);
         //checkout.selectCountryDropdown();
         //Thread.sleep(1000);
       /*  checkout.setCountryInputField("South Africa");
         Thread.sleep(1000);*/
-        checkout.setStreet("123 Orange Street");
+        checkout.setStreet(streetAddress);
         Thread.sleep(1000);
-        checkout.setStreetType("Apartment");
-        Thread.sleep(1000);
-        checkout.setCity("Cape Town");
+        /*checkout.setStreetType("Apartment");
+        Thread.sleep(1000);*/
+        checkout.setCity(city);
         Thread.sleep(1000);
       /*  checkout.selectProvinceDropdown();
         Thread.sleep(1000);
         checkout.setProvinceSearchbar("Western Cape");
         Thread.sleep(1000);*/
-        checkout.setBillingCode("5050");
+        checkout.setBillingCode(code);
         Thread.sleep(1000);
-        checkout.setPhone("025655666");
+        checkout.setPhone(phone);
         Thread.sleep(1000);
-        checkout.setEmail("testing@demo.com");
+        checkout.setEmail(email);
         Thread.sleep(1000);
+        parentTest.info("All mandatory fields are filled in");
+        parentTest.addScreenCaptureFromPath(reportsHelper.captureScreenshot("checkout.jpg"));
+
         checkout.placeOrder();
         Thread.sleep(1000);
+        parentTest.info("Order is placed");
+        parentTest.addScreenCaptureFromPath(reportsHelper.captureScreenshot("order_conf.jpg"));
 
         confirmation = new Confirmation(driver);
        /* assertTrue(confirmation.orderSuccess().equals(true), "Order successful");
@@ -157,6 +186,9 @@ public class AppTests extends BaseTests {
 
         products.clickMyAccount();
         confirmation.displayOrders();
+        parentTest.info("Display orders");
+        parentTest.addScreenCaptureFromPath(reportsHelper.captureScreenshot("checkout.jpg"));
+        extentReports.flush();
         Thread.sleep(2000);
     }
 }
