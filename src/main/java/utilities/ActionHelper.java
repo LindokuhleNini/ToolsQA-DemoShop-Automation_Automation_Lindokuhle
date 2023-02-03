@@ -20,11 +20,6 @@ import static org.openqa.selenium.devtools.v107.page.Page.captureScreenshot;
 
 public class ActionHelper {
     WebDriver driver;
-    WebElement el;
-
-    File file = new File("report.html");
-    ExtentReports extentReports = new ExtentReports();
-    ExtentSparkReporter spark =  new ExtentSparkReporter(file);
 
     public ActionHelper(WebDriver driver){
         this.driver = driver;
@@ -32,7 +27,6 @@ public class ActionHelper {
     public void clickElement(By element)
     {
         new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.elementToBeClickable(element)).click();
-        //element.sendKeys(Keys.DOWN);
     }
 
     public WebDriver setupBrowser(String browser){
@@ -51,61 +45,5 @@ public class ActionHelper {
         return driver;
     }
 
-    public void passedLoginScreenshot(){
-
-        extentReports.attachReporter(spark);
-        String path = captureScreenshot("LoginPassed.jpg");
-
-        extentReports
-                .createTest("Login Test 2", "Successful login")
-                .info("Info")
-                .addScreenCaptureFromPath(path);
-
-        String path2 = captureScreenshot("LoginFailed.jpg");
-        extentReports
-                .createTest("Login Test 1", "Failed login")
-                .info("Info")
-                .addScreenCaptureFromPath(path2);
-
-        extentReports.flush();
-    }
-
-    public void failedLoginScreenshot(){
-
-        extentReports.attachReporter(spark);
-        String path = captureScreenshot("LoginFailed.jpg");
-        extentReports
-                .createTest("Login Test 1", "Failed login")
-                .info("Info")
-                .addScreenCaptureFromPath(path);
-
-        extentReports.flush();
-    }
-
-    public void cartScreenshot(){
-
-        extentReports.attachReporter(spark);
-        String path = captureScreenshot("CartSuccess.jpg");
-
-        extentReports
-                .createTest("Add item to cart test", "Item added successfully")
-                .info("Info")
-                .addScreenCaptureFromPath(path);
-
-        extentReports.flush();
-    }
-
-    public String captureScreenshot(String fileName) {
-        TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
-        File sourceFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
-        File destFile = new File("./Screenshots/"+fileName);
-        try {
-            FileUtils.copyFile(sourceFile, destFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("Screenshot saved successfully");
-        return destFile.getAbsolutePath();
-    }
 
 }

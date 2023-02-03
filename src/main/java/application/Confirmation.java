@@ -14,6 +14,7 @@ public class Confirmation extends ActionHelper {
 
     public Boolean orderSuccess(){
 
+        //confirm if thank you screen is displayed
         if (driver.findElement(By.className("woocommerce-thankyou-order-received")).isDisplayed())
         {
             return true;

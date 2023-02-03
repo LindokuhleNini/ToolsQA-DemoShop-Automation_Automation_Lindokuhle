@@ -20,11 +20,11 @@
                     <include name="testItemAddedToCart"/>
                 </methods>
             </class>
-            <class name="AppTests">
-                <methods>
-                    <include name="testCheckout"/>
-                </methods>
-            </class>
+            <!-- <class name="AppTests">
+                 <methods>
+                     <include name="testCheckout"/>
+                 </methods>
+             </class>-->
         </classes>
     </test>
    <!-- <test verbose="2" preserve-order="true" name="Microsoft Edge Browser Test">

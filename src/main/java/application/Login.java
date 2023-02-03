@@ -31,13 +31,12 @@ public class Login extends ActionHelper {
 
     public Dashboard clickLoginButton() {
         clickElement(loginButton);
-        /*new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(loginButton)).click();*/
         return new Dashboard(driver);
     }
 
     public Boolean loginErrorVisible(){
 
+        //check if error message is displayed
         if (driver.findElement(errorMsg).isDisplayed())
         {
             return true;

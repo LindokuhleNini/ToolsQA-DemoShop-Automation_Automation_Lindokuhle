@@ -5,10 +5,11 @@ import org.openqa.selenium.WebDriver;
 import utilities.ActionHelper;
 
 public class Dashboard extends ActionHelper {
-    private WebDriver driver;
+    public WebDriver driver;
 
     public Dashboard(WebDriver driver){
         super(driver);
+        this.driver = driver;
     }
 
     public void navigateToProducts(){

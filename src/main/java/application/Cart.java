@@ -13,14 +13,16 @@ public class Cart extends ActionHelper {
         this.driver = driver;
     }
 
-
     public String cartTotal(){
         return driver.findElement(By.className("woocommerce-Price-amount")).getText();
     }
 
     public Checkout proceedToCheckout(){
+        //Scroll to bottom on screen
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,1000)");
+
+        //Go to checkout
         clickElement(By.linkText("PROCEED TO CHECKOUT"));
         return new Checkout(driver);
     }

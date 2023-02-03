@@ -15,17 +15,16 @@ public class Checkout extends ActionHelper {
     private By lastNameField = By.id("billing_last_name");
     private By companyName = By.id("billing_company");
     private By countryDropdown = By.id("select2-billing_country-container");
-    private By countryInputField = By.className("select2-search__field");
-    private WebElement country = driver.findElement(By.linkText("South Africa"));
-    private By street = By.id("billing_address_1");
+    private By countryInputField = By.xpath("//input[@role='combobox']");
+    private By street = By.xpath("//input[@id='billing_address_1']");
     private By streetType = By.id("billing_address_2");
-    private By city = By.id("billing_city");
+    private By cityField = By.id("billing_city");
     private By provinceDropdown = By.cssSelector("#select2-billing_state-container");
     private By provinceSearchbar = By.className("select2-search__field");
     private By provinceOptions = By.xpath("//*[@id=\"billing_state\"]");
     private By billingCode = By.id("billing_postcode");
-    private By phone = By.id("billing_phone_field");
-    private By email = By.id("billing_email_field");
+    private By phone = By.xpath("//input[@id='billing_phone']");
+    private By email = By.xpath("//input[@id='billing_email']");
 
     public Checkout(WebDriver driver){
         super(driver);
@@ -33,76 +32,89 @@ public class Checkout extends ActionHelper {
     }
 
     public void setFirstName(String firstName) {
+       driver.findElement(firstNameField).clear();
        driver.findElement(firstNameField).sendKeys(firstName);
     }
 
     public void setLastName(String lastName) {
+        driver.findElement(lastNameField).clear();
         driver.findElement(lastNameField).sendKeys(lastName);
     }
 
     public void setCompanyName(String company) {
+        driver.findElement(companyName).clear();
         driver.findElement(companyName).sendKeys(company);
     }
 
     public void selectCountryDropdown() {
+        //driver.findElement(countryDropdown).clear();
         driver.findElement(countryDropdown).click();
     }
 
  public void setCountryInputField(String country) {
         driver.findElement(countryInputField).sendKeys(country);
+     driver.findElement(countryInputField).click();
     }
 
     public void setCountry() {
         //driver.findElement(country).click();
+        WebElement country = driver.findElement(By.linkText("South Africa"));
         Select select = new Select(country);
         select.selectByVisibleText("South Africa");
-
     }
 
-    public void setStreet(By street) {
-        this.street = street;
+    public void setStreet(String str) {
+        driver.findElement(street).clear();
+        driver.findElement(street).sendKeys(str);
     }
 
-    public void setStreetType(By streetType) {
-        this.streetType = streetType;
+    public void setStreetType(String type) {
+        driver.findElement(streetType).clear();
+        driver.findElement(streetType).sendKeys(type);
     }
 
-    public void setCity(By city) {
-        this.city = city;
+    public void setCity(String city) {
+        driver.findElement(cityField).clear();
+        driver.findElement(cityField).sendKeys(city);
     }
 
-    public void setProvinceDropdown(By provinceDropdown) {
-        this.provinceDropdown = provinceDropdown;
+    public void selectProvinceDropdown() {
+        driver.findElement(provinceDropdown).click();
     }
 
-    public void setProvinceSearchbar(By provinceSearchbar) {
-        this.provinceSearchbar = provinceSearchbar;
+    public void setProvinceSearchbar(String province) {
+        driver.findElement(provinceSearchbar).sendKeys(province);
+        driver.findElement(provinceSearchbar).click();
     }
 
     public void setProvinceOptions(By provinceOptions) {
         this.provinceOptions = provinceOptions;
     }
 
-    public void setBillingCode(By billingCode) {
-        this.billingCode = billingCode;
+    public void setBillingCode(String code) {
+        driver.findElement(billingCode).clear();
+        driver.findElement(billingCode).sendKeys(code);
     }
 
-    public void setPhone(By phone) {
-        this.phone = phone;
+    public void setPhone(String phoneNum) {
+        driver.findElement(phone).clear();
+        driver.findElement(phone).sendKeys(phoneNum);
     }
 
-    public void setEmail(By email) {
-        this.email = email;
+    public void setEmail(String emailAddress) {
+        driver.findElement(email).clear();
+        driver.findElement(email).sendKeys(emailAddress);
     }
 
     public void placeOrder(){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,1000)");
-
-        String elementId = "terms";
-        WebElement element = driver.findElement(By.id(elementId));
+        String elementId = "//input[@id='terms']";
+        WebElement element = driver.findElement(By.xpath(elementId));
         element.click();
+
+        //Check if Ts and Cs are selected
         if(element.isSelected()){
+
+            //if selected, place order
             clickElement(By.id("place_order"));
         }
     }
