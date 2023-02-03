@@ -130,14 +130,14 @@ public class AppTests extends BaseTests {
         extentReports.attachReporter(spark);
         ExtentTest parentTest = extentReports.createTest("Checkout Test");
 
-        testSuccessfulLogin();
+        //testSuccessfulLogin();
         products.openCart();
         cart.proceedToCheckout();
 
         String firstName = excelHelper.getCellDataString(3, 1);
         String lastName = excelHelper.getCellDataString(3, 2);
         String company = excelHelper.getCellDataString(3, 8);
-        String streetAddress = ""+excelHelper.getCellDataInt(3, 10);
+        String streetAddress = excelHelper.getCellDataString(3, 10);
         //String addressType = ""+excelHelper.getCellDataInt(3, 5);
         String city = excelHelper.getCellDataString(3, 11);
         String code = ""+excelHelper.getCellDataInt(3, 13);
@@ -175,19 +175,20 @@ public class AppTests extends BaseTests {
         parentTest.addScreenCaptureFromPath(reportsHelper.captureScreenshot("checkout.jpg"));
 
         checkout.placeOrder();
-        Thread.sleep(1000);
-        parentTest.info("Order is placed");
-        parentTest.addScreenCaptureFromPath(reportsHelper.captureScreenshot("order_conf.jpg"));
+        Thread.sleep(2000);
 
         confirmation = new Confirmation(driver);
-       /* assertTrue(confirmation.orderSuccess().equals(true), "Order successful");
-        assertFalse(confirmation.orderSuccess().equals(false), "Order unsuccessful");*/
-        Thread.sleep(1000);
+        /*assertTrue(confirmation.orderSuccess().equals(true), "Order successful");
+        assertFalse(confirmation.orderSuccess().equals(false), "Order unsuccessful");
+        Thread.sleep(1000);*/
+
+        parentTest.info("Order is placed");
+        parentTest.addScreenCaptureFromPath(reportsHelper.captureScreenshot("order_conf.jpg"));
 
         products.clickMyAccount();
         confirmation.displayOrders();
         parentTest.info("Display orders");
-        parentTest.addScreenCaptureFromPath(reportsHelper.captureScreenshot("checkout.jpg"));
+        parentTest.addScreenCaptureFromPath(reportsHelper.captureScreenshot("orders.jpg"));
         extentReports.flush();
         Thread.sleep(2000);
     }

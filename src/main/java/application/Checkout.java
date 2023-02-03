@@ -107,6 +107,8 @@ public class Checkout extends ActionHelper {
     }
 
     public void placeOrder(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,-200)");
         String elementId = "//input[@id='terms']";
         WebElement element = driver.findElement(By.xpath(elementId));
         element.click();
