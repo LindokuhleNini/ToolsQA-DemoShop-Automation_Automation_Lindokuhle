@@ -3,6 +3,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -151,26 +152,30 @@ public class AppTests extends BaseTests {
         Thread.sleep(1000);
         checkout.setCompanyName(company);
         Thread.sleep(1000);
-        //checkout.selectCountryDropdown();
-        //Thread.sleep(1000);
-      /*  checkout.setCountryInputField("South Africa");
+
+        /*checkout.selectCountryDropdown();
+        Thread.sleep(1000);
+        checkout.setCountry();
         Thread.sleep(1000);*/
+
         checkout.setStreet(streetAddress);
         Thread.sleep(1000);
-        /*checkout.setStreetType("Apartment");
-        Thread.sleep(1000);*/
         checkout.setCity(city);
         Thread.sleep(1000);
-      /*  checkout.selectProvinceDropdown();
-        Thread.sleep(1000);
-        checkout.setProvinceSearchbar("Western Cape");
+
+        /*checkout.selectProvinceDropdown();
         Thread.sleep(1000);*/
+        /*checkout.setProvinceSearchbar("Western Cape");
+        Thread.sleep(1000);*/
+
         checkout.setBillingCode(code);
         Thread.sleep(1000);
+
         checkout.setPhone(phone);
         Thread.sleep(1000);
         checkout.setEmail(email);
         Thread.sleep(1000);
+
         parentTest.info("All mandatory fields are filled in");
         parentTest.addScreenCaptureFromPath(reportsHelper.captureScreenshot("checkout.jpg"));
 
@@ -182,9 +187,13 @@ public class AppTests extends BaseTests {
         assertFalse(confirmation.orderSuccess().equals(false), "Order unsuccessful");
         Thread.sleep(1000);*/
 
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,500)");
         parentTest.info("Order is placed");
         parentTest.addScreenCaptureFromPath(reportsHelper.captureScreenshot("order_conf.jpg"));
 
+        Thread.sleep(2000);
+        js.executeScript("window.scrollBy(0,-500)");
         products.clickMyAccount();
         confirmation.displayOrders();
         parentTest.info("Display orders");

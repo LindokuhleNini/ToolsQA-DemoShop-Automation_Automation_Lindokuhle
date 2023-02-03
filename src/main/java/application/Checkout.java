@@ -56,11 +56,20 @@ public class Checkout extends ActionHelper {
      driver.findElement(countryInputField).click();
     }
 
-    public void setCountry() {
+    public void setCountry() throws InterruptedException {
         //driver.findElement(country).click();
-        WebElement country = driver.findElement(By.linkText("South Africa"));
+        /*WebElement country = driver.findElement(By.xpath("//input[@id='billing_address_2']"));
         Select select = new Select(country);
-        select.selectByVisibleText("South Africa");
+        select.selectByVisibleText("South Africa");*/
+
+        /*Select drpCountry = new Select(driver.findElement(By.xpath("//*[@id=\"billing_country\"]")));
+        drpCountry.selectByVisibleText("South Africa");*/
+
+        //clickElement(By.id("select2-billing_country-container"));
+        driver.findElement(By.id("select2-billing_country-container")).click();
+        Thread.sleep(1000);
+        //clickElement(By.xpath("//*[text()='South Africa']"));
+        driver.findElement(By.xpath("/html/body/span/span/span[1]/input")).sendKeys("South Africa");
     }
 
     public void setStreet(String str) {
