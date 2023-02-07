@@ -41,7 +41,7 @@ public class AppTests extends BaseTests {
         extentReports.flush();
 
         assertFalse(loginPage.loginErrorVisible(),
-                "The username or password is incorrect");
+                "Login Credentials are correct");
     }
 
     @Test(priority = 1)
